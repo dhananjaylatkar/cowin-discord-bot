@@ -32,7 +32,7 @@ class cowin():
         compare = -1 if all else 0
         for center in data:
             for sess in center['sessions']:
-                if sess['available_capacity'] > compare:
+                if sess['available_capacity'] > compare and 'RH SDH Mukhed' in center.get('name'):
                     res.append([
                         sess.get('date'),
                         sess.get('available_capacity'),

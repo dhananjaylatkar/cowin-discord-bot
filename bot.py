@@ -13,7 +13,7 @@ handler.setFormatter(logging.Formatter(
 
 client = discord.Client()
 cowin = cowin()
-pincodes = {'Mukhed': '431715', 'Nanded': '431605'}
+pincodes = {'Mukhed': '431715'}
 
 
 @client.event
@@ -34,11 +34,13 @@ async def on_message(message):
                 if data:
                     await message.channel.send('All slot(s) in {}'.format(place))
                     await message.channel.send('```' + data + '```')
+                else:
+                    await message.channel.send('No slots found in {}'.format(place))
 
 
-@tasks.loop(seconds=10.0)
+@tasks.loop(seconds=5.0)
 async def test():
-    channel = client.get_channel(843153394213847051)
+    channel = discord.utils.get(client.get_all_channels(), name='cowin')
     for place, pin in pincodes.items():
         data = cowin.format_data(cowin.get_data(pin))
         if data:
